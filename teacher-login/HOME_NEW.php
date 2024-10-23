@@ -25,97 +25,97 @@ if ($_GET) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
-    :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #34495e;
-        --accent-color: #3498db;
-        --success-color: #2ecc71;
-        --warning-color: #f1c40f;
-        --danger-color: #e74c3c;
-    }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --danger-color: #e74c3c;
+        }
 
-    body {
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    .navbar {
-        background-color: var(--primary-color) !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    .welcome-section {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        color: white;
-        padding: 2rem;
-        border-radius: 10px;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .welcome-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    .stats-card {
-        background: white;
-        border-radius: 10px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease;
-    }
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
 
-    .stats-card:hover {
-        transform: translateY(-5px);
-    }
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
 
-    .notification-card {
-        background: white;
-        border-radius: 10px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border-left: 4px solid var(--accent-color);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
+        .notification-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
 
-    .quick-actions {
-        background: white;
-        border-radius: 10px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
+        .quick-actions {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
 
-    .action-button {
-        padding: 1rem;
-        border-radius: 8px;
-        border: none;
-        background-color: var(--accent-color);
-        color: white;
-        transition: all 0.3s ease;
-    }
+        .action-button {
+            padding: 1rem;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--accent-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
 
-    .action-button:hover {
-        background-color: #2980b9;
-        transform: translateY(-2px);
-    }
+        .action-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
 
-    .footer {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 1.5rem 0;
-        margin-top: 3rem;
-    }
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
 
-    .alert-success {
-        border-left: 4px solid var(--success-color);
-    }
+        .alert-success {
+            border-left: 4px solid var(--success-color);
+        }
 
-    .notification-date {
-        color: #666;
-        font-size: 0.9rem;
-    }
+        .notification-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
 
-    .icon-stat {
-        font-size: 2rem;
-        color: var(--accent-color);
-    }
+        .icon-stat {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
     </style>
 </head>
 
@@ -141,7 +141,13 @@ if ($_GET) {
             <div class="welcome-section">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h1><i class="fas fa-chalkboard-teacher me-3"></i>Welcome, <?php echo $_SESSION['t_id']; ?>!
+                        <h1><i class="fas fa-chalkboard-teacher me-3"></i>Welcome, <?php
+                        include("teacher_db.php");
+                        $t_sql = "SELECT `t_name` from `teacher_data` where  `t_id` = '{$_SESSION['t_id']}'";
+                        $t_res = mysqli_query($conn, $t_sql);
+                        $t_row = mysqli_fetch_assoc($t_res);
+                        $teacher = $t_row['t_name'];
+                        echo $teacher; ?>!
                         </h1>
                         <p class="lead mb-0">Manage your virtual classroom and track student progress</p>
                     </div>
@@ -251,38 +257,38 @@ if ($_GET) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('#btn').click(function() {
-            function removeURLParameters(url, parameters) {
-                var urlObj = new URL(url);
-                parameters.forEach(function(parameter) {
-                    urlObj.searchParams.delete(parameter);
-                });
-                return urlObj.href;
-            }
-            var currentUrl = window.location.href;
-            var updatedUrl = removeURLParameters(currentUrl, ['t_id', 'msg']);
-            window.history.pushState({}, document.title, updatedUrl);
-        });
+        $(document).ready(function () {
+            $('#btn').click(function () {
+                function removeURLParameters(url, parameters) {
+                    var urlObj = new URL(url);
+                    parameters.forEach(function (parameter) {
+                        urlObj.searchParams.delete(parameter);
+                    });
+                    return urlObj.href;
+                }
+                var currentUrl = window.location.href;
+                var updatedUrl = removeURLParameters(currentUrl, ['t_id', 'msg']);
+                window.history.pushState({}, document.title, updatedUrl);
+            });
 
-        // Add smooth scrolling
-        $('a[href*="#"]').on('click', function(e) {
-            e.preventDefault();
-            $('html, body').animate({
-                scrollTop: $($(this).attr('href')).offset().top
-            }, 500, 'linear');
-        });
+            // Add smooth scrolling
+            $('a[href*="#"]').on('click', function (e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $($(this).attr('href')).offset().top
+                }, 500, 'linear');
+            });
 
-        // Add hover effect to cards
-        $('.stats-card').hover(
-            function() {
-                $(this).addClass('shadow-lg');
-            },
-            function() {
-                $(this).removeClass('shadow-lg');
-            }
-        );
-    });
+            // Add hover effect to cards
+            $('.stats-card').hover(
+                function () {
+                    $(this).addClass('shadow-lg');
+                },
+                function () {
+                    $(this).removeClass('shadow-lg');
+                }
+            );
+        });
     </script>
 </body>
 
