@@ -1,0 +1,1 @@
+INSERT INTO `student_data` (`s_id`, `s_name`, `s_pass`, `s_img`, `class`, `section`, `father`, `mother`, `mobile`, `dateofRagister`, `email`) VALUES (NULL, 'ashu', '1', 'dcjnjd', '2', 'a', 'c', 'cc', '323214', current_timestamp(), 'raghav@gmail.com');

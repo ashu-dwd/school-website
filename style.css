@@ -1,0 +1,334 @@
+/* Flexbox styling for equal spacing */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h1.title,
+.footer-copyright a {
+  font-family: "Architects Daughter", cursive;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+body.welcome {
+  background: #512da8;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Logo */
+.nav-logo h2 {
+  padding: 20px;
+  margin-left: 25px;
+  cursor: pointer;
+  color: tomato;
+  text-shadow: 2px 2px green;
+}
+.nav-logo h2 span {
+  font-size: 26px;
+  font-style: italic;
+}
+
+/* Navigation styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-right ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav-right ul li {
+  padding: 0 15px;
+}
+
+.nav-right ul li a {
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px;
+  position: relative;
+}
+
+/* Hover animation for navigation items */
+.nav-right ul li a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: #f10cdf;
+  transition: width 0.5s ease-in-out;
+}
+
+.nav-right ul li a:hover::before {
+  width: 100%;
+}
+
+/* Start welcome animation */
+.welcome .splash {
+  height: 0px;
+  padding: 0px;
+  border: 130em solid #039be5;
+  position: fixed;
+  left: 50%;
+  top: 100%;
+  display: block;
+  box-sizing: initial;
+  overflow: hidden;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: puff 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards,
+    borderRadius 0.2s 2.3s linear forwards;
+}
+
+.welcome #welcome {
+  background: #311b92;
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards,
+    moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards,
+    moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+    materia 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards,
+    hide 2s 2.9s ease forwards;
+}
+
+.welcome header,
+.welcome a.btn {
+  opacity: 0;
+  animation: moveIn 2s 3.1s ease forwards;
+}
+
+@keyframes init {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  100% {
+    width: 56px;
+    height: 56px;
+    margin-top: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes puff {
+  0% {
+    top: 100%;
+    height: 0px;
+    padding: 0px;
+  }
+  100% {
+    top: 50%;
+    height: 100%;
+    padding: 0px 100%;
+  }
+}
+
+@keyframes borderRadius {
+  0% {
+    border-radius: 50%;
+  }
+  100% {
+    border-radius: 0px;
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    top: 50%;
+  }
+  50% {
+    top: 40%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    background: #311b92;
+    top: 100%;
+  }
+  50% {
+    top: 40%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@keyframes materia {
+  0% {
+    width: 56px;
+    height: 56px;
+    opacity: 1;
+    background: #311b92;
+  }
+  50% {
+    width: 250px;
+    height: 250px;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    background: white;
+  }
+}
+
+@keyframes hide {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes moveIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+/* Logo container */
+.nav-logo {
+  width: 40%;
+  float: left;
+  padding: 10px 25px;
+}
+
+/* Logo image styling */
+.nav-logo img {
+  max-width: 50px; /* Ensure the logo scales within the container */
+  height: auto; /* Maintain the aspect ratio */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; /* Smooth hover animation */
+}
+
+/* Hover effect for logo */
+.nav-logo img:hover {
+  transform: scale(1.1); /* Slight zoom-in on hover */
+}
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.nav-logo img {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Navbar links */
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.nav-links li {
+  padding: 0 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.nav-links a:hover {
+  color: #ddd;
+}
+
+/* Hamburger menu for mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px;
+  transition: 0.4s;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  /* Adjust the navbar to stack elements vertically */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #222b65;
+    z-index: 999;
+  }
+
+  .nav-links li {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Toggle open state of the navbar */
+  .nav-links.active {
+    display: flex;
+  }
+}
