@@ -55,7 +55,25 @@ if ($_GET) {
             <h1>Welcome to Ashu's Classroom, <?php echo $_SESSION['t_id']; ?></h1>
             <p>This is your dashboard where you can manage your classes, assignments, and more.</p>
         </div>
+        <div class="container mt-3 bg-success">
+            <?php
+            include("teacher_db.php");
+            $sql = "SELECT * FROM `notifications` ORDER BY `date` DESC";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Notification By Admin</h4>
+        <p>' . $row['date'] . '</p>
+        <hr />
+        <p class="mb-0">' . $row['notifi_text'] . '</p>
+    </div>';
+                }
+            }
+            ?>
+        </div>
     </main>
+
 
     <footer class="mt-5">
         <!-- Footer -->
@@ -67,28 +85,28 @@ if ($_GET) {
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
+        </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('#btn').click(function() {
-            function removeURLParameters(url, parameters) {
+        $(document).ready(function () {
+            $('#btn').click(function () {
+                function removeURLParameters(url, parameters) {
 
-                var urlObj = new URL(url);
-                parameters.forEach(function(parameter) {
-                    urlObj.searchParams.delete(parameter);
-                });
-                return urlObj.href;
-            }
-            var currentUrl = window.location.href;
-            var updatedUrl = removeURLParameters(currentUrl, ['t_id', 'msg']);
-            window.history.pushState({}, document.title, updatedUrl);
+                    var urlObj = new URL(url);
+                    parameters.forEach(function (parameter) {
+                        urlObj.searchParams.delete(parameter);
+                    });
+                    return urlObj.href;
+                }
+                var currentUrl = window.location.href;
+                var updatedUrl = removeURLParameters(currentUrl, ['t_id', 'msg']);
+                window.history.pushState({}, document.title, updatedUrl);
+            });
         });
-    });
     </script>
 </body>
 
