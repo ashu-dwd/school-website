@@ -10,7 +10,7 @@ if(isset($_POST['btn'])){
        if ($num==0) {
         $_SESSION['t_id'] = $id;
         $_SESSION['t_name'] = $name;
-        header("location: home.php");
+        header("location: HOME_NEW.php");
        } else {
         echo '<div class="alert alert-danger alert-dismissible">Please Check Your Credentials</div>';
        }
