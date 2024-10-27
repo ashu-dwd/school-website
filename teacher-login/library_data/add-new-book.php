@@ -253,69 +253,55 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="content-card">
-            <h1 class="text-center mb-4">Allot Book To Student</h1>
-            <form>
+            <h2 class="mb-4">Add New Book</h2>
+            <form action="" method="post">
+
                 <div class="row">
-                    <!-- Class Selection -->
                     <div class="col-md-6 mb-3">
-                        <label for="s_class" class="form-label">Select Class</label>
-                        <select class="form-select" name="s_class" id="s_class">
-                            <option selected disabled>Select Class</option>
-                            <?php
-                            for ($i = 1; $i <= 12; $i++) {
-                                echo '<option value="' . $i . '">' . $i . '</option>';
-                            }
-                            ?>
+                        <label for="book_name" class="form-label">Book Name</label>
+                        <input type="text" class="form-control" name="book_name" id="book_name"
+                            placeholder="Enter book name">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="book_type" class="form-label">Book Type</label>
+                        <select class="form-select" name="book_type" id="book_type">
+                            <option selected disabled>Select Book Type</option>
+                            <optgroup label="General">
+                                <option value="reference">Reference Book</option>
+                                <option value="dictionary">Dictionary</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="biography">Biography</option>
+                            </optgroup>
+                            <optgroup label="Academic">
+                                <option value="mathematics">Mathematics</option>
+                                <option value="science">Science</option>
+                                <option value="physics">Physics</option>
+                                <option value="chemistry">Chemistry</option>
+                            </optgroup>
                         </select>
                     </div>
-
-                    <!-- Section Selection -->
                     <div class="col-md-6 mb-3">
-                        <label for="section" class="form-label">Select Section</label>
-                        <select class="form-select" name="section" id="section">
-                            <option selected disabled>Select Section</option>
-                            <option value="A">Section A</option>
-                            <option value="B">Section B</option>
-                            <option value="C">Section C</option>
-                            <option value="D">Section D</option>
-                        </select>
-                    </div>
-
-                    <!-- Student Selection -->
-                    <div class="col-md-6 mb-3">
-                        <label for="s_name" class="form-label">Student Name</label>
-                        <select class="form-select" name="s_name" id="s_name">
-                            <option selected disabled>Select Student</option>
-                        </select>
-                    </div>
-
-                    <!-- Book Code with Autocomplete -->
-                    <div class="col-md-6 mb-3">
-                        <label for="book" class="form-label">Book Code</label>
-                        <div class="position-relative">
-                            <input type="text" class="form-control" name="book" id="book" placeholder="Enter Book Code"
-                                autocomplete="off" />
-                            <div id="list" class="position-absolute w-100 mt-1 bg-white border rounded shadow-sm"
-                                style="display: none; z-index: 1000;">
-                                <ul class="list-group list-group-flush">
-                                    <!-- Autocomplete items will be inserted here -->
-                                </ul>
-                            </div>
+                        <label for="book_code" class="form-label">Book Code</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="book_code" id="book_code"
+                                placeholder="Book code will be generated" readonly>
+                            <button class="btn btn-outline-secondary" onclick="code()" type="button">
+                                <i class="fas fa-sync-alt"></i> Generate
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Submit Button -->
                 <div class="mt-4">
-                    <button type="submit" name="btn" id="btn" class="btn btn-submit w-100">
-                        <i class="fas fa-book me-2"></i>Allot Book
+                    <button type="submit" id="submit" class="btn btn-submit">
+                        <i class="fas fa-save me-2"></i> Submit Book
                     </button>
                 </div>
             </form>
         </div>
     </main>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         // Toggle sidebar on mobile
         document.getElementById('sidebarToggle').addEventListener('click', function () {
@@ -331,47 +317,65 @@
                 sidebar.classList.remove('show');
             }
         });
+
+        function generateBookCode(subject) {
+            // Generate the randomized structure
+            const part1 = Math.random().toString(36).substring(2, 4).toUpperCase(); // 2 characters
+            const part2 = Math.floor(Math.random() * 10); // 1 digit
+            const part3 = Math.floor(Math.random() * 10); // 1 digit
+            const part4 = Math.random().toString(36).substring(2, 4).toUpperCase(); // 2 characters
+
+            // Get the first word of the subject
+            const firstWord = subject.split(" ")[0].toUpperCase();
+
+            // Combine all parts
+            return `${part1}${part2}${part3}${part4}-${firstWord}`;
+        }
+
+        // Get the select element by its ID
+        var bookTypeSelect = document.getElementById('book_type');
+
+        // Add an event listener to handle changes
+        bookTypeSelect.addEventListener('change', function () {
+            // Get the selected value
+            var subject = bookTypeSelect.value;
+
+            // Call the code function with the selected subject
+            return code(subject);
+        });
+
+        // Function to generate and set the book code
+        function code(subject) {
+            // Generate the book code using the selected subject
+            var bookCode = generateBookCode(subject);
+
+            // Set the generated book code in the input field with ID 'book_code'
+            document.getElementById('book_code').value = bookCode;
+        }
+    </script>
+    <script>
         $(document).ready(function () {
-            $('#s_class, #section').on('change', function () {
-                var class_id = $('#s_class').val();
-                var section = $('#section').val();
-
-                if (class_id && section) {
-                    $.ajax({
-                        type: "POST",
-                        url: "fetch-students.php",
-                        data: {
-                            s_class: class_id,
-                            section: section
-                        },
-                        success: function (response) {
-                            console.log(response)
-                            $('#s_name').html(response);
-                        }
-                    });
-                } else {
-                    $('#s_name').html('<option selected>Select one</option>');
-                }
+            $('#submit').click(function (e) {
+                e.preventDefault();
+                var bookTypeSelect = $('#book_type').val();
+                var bookCodeInput = $('#book_code').val();
+                var bookName = $('#book_name').val();
+                alert(bookCodeInput + " " + bookTypeSelect);
+                $.ajax({
+                    type: "post",
+                    url: "adding-book.php",
+                    data: {
+                        bookType: bookTypeSelect,
+                        bookCode: bookCodeInput,
+                        bookName: bookName
+                    },
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
             });
-            $('#book').keyup(function () {
-                var book = $(this).val();
-                if (book != '') {
-                    $.ajax({
-                        type: "post",
-                        url: "load-books.php",
-                        data: {
-                            book: book
-                        },
 
-                        success: function (response) {
-                            console.log(response);
-                            $('#list').fadeIn("fast").html(response);
-                        }
-                    });
-                } else {
-                    $('#list').fadeOut();
-                }
-            })
+
         });
     </script>
 </body>
