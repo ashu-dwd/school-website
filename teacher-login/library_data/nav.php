@@ -14,9 +14,8 @@
                         Student Tests
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="studentTestsDropdown">
-                        <li><a class="dropdown-item" href="student tests/index.php">Set test</a></li>
+                        <li><a class="dropdown-item" href="../student tests/index.php">Set test</a></li>
                         <li><a class="dropdown-item" href="#">View Result</a></li>
-                        <li><a class="dropdown-item" href="student tests/unset.php">Unset Test</a></li>
                     </ul>
                 </li>
 
@@ -27,7 +26,7 @@
                         Library Data
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="libraryDataDropdown">
-                        <li><a class="dropdown-item" href="library_data">Action 1</a></li>
+                        <li><a class="dropdown-item" href="#">Action 1</a></li>
                         <li><a class="dropdown-item" href="#">Action 2</a></li>
                     </ul>
                 </li>
@@ -37,7 +36,7 @@
                         Student Data
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="libraryDataDropdown">
-                        <li><a class="dropdown-item" href="student data/index.php">View Students</a></li>
+                        <li><a class="dropdown-item" href="#">Action 1</a></li>
                         <li><a class="dropdown-item" href="#">Action 2</a></li>
                     </ul>
                 </li>

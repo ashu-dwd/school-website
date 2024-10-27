@@ -85,28 +85,27 @@ if ($_GET) {
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-        </script>
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#btn').click(function () {
-                function removeURLParameters(url, parameters) {
-
-                    var urlObj = new URL(url);
-                    parameters.forEach(function (parameter) {
-                        urlObj.searchParams.delete(parameter);
-                    });
-                    return urlObj.href;
-                }
-                var currentUrl = window.location.href;
-                var updatedUrl = removeURLParameters(currentUrl, ['t_id', 'msg']);
-                window.history.pushState({}, document.title, updatedUrl);
-            });
+    $(document).ready(function() {
+        $('#btn').click(function() {
+            function removeURLParameters(url, parameters) {
+                var urlObj = new URL(url);
+                parameters.forEach(function(parameter) {
+                    urlObj.searchParams.delete(parameter);
+                });
+                return urlObj.href;
+            }
+            var currentUrl = window.location.href;
+            var updatedUrl = removeURLParameters(currentUrl, ['t_id', 'msg']);
+            window.history.pushState({}, document.title, updatedUrl);
         });
+    });
     </script>
 </body>
 
