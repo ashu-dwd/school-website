@@ -1,20 +1,19 @@
 <?php
 session_start();
-if(isset($_POST['btn'])){
-       include("teacher_db.php");
-       $id = $_POST['teacherName'];
-       $pass = $_POST['password'];
-       $sql = "select * from `teacher_data` where t_id = '$id' and t_pass ='$pass'";
-       $res = mysqli_query($teacher_conn,$sql);
-       $num = mysqli_num_rows($res);
-       if ($num==0) {
+if (isset($_POST['btn'])) {
+    include("teacher_db.php");
+    $id = $_POST['teacherName'];
+    $pass = $_POST['password'];
+    $sql = "SELECT * FROM `teacher_data` WHERE t_id = '$id' AND t_pass = '$pass'";
+    $res = mysqli_query($teacher_conn, $sql);
+    $num = mysqli_num_rows($res);
+    if ($num > 0) {
         $_SESSION['t_id'] = $id;
         $_SESSION['t_name'] = $name;
-        header("location: HOME_NEW.php");
-       } else {
+        header("Location: HOME_NEW.php");
+    } else {
         echo '<div class="alert alert-danger alert-dismissible">Please Check Your Credentials</div>';
-       }
-       
+    }
 }
 ?>
 
@@ -42,10 +41,7 @@ if(isset($_POST['btn'])){
     .login-container {
         max-width: 400px;
         width: 100%;
-        /* padding: 2rem;
-        background-color: #fff; */
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        /* border-radius: 10px; */
         border-radius: 0.75rem;
         background-color: rgba(255, 255, 255, 0.4);
         backdrop-filter: blur(5px);
@@ -100,28 +96,27 @@ if(isset($_POST['btn'])){
         <form method="post" action="">
             <div class="mb-3">
                 <label for="teacherName" class="form-label">Select Your Name</label>
-                <select name="teacherName" id="teacherName" class="form-select">
+                <select name="teacherName" id="teacherName" class="form-select" required>
                     <option value="" disabled selected>Select Your Name</option>
                     <?php
-                       include("teacher_db.php");
-                       $sql_check = "select * from `teacher_data`";
-                       $res_check = mysqli_query($teacher_conn,$sql_check);
-                       $num_check = mysqli_num_rows($res_check);
-                       if ($num_check>0) {
-                        while ($row=mysqli_fetch_assoc($res_check)) {
-                            $name= $row['t_name'];
-                            echo '<option value="'.$row['t_id'].'">'.$row['t_id'].'. '.$row['t_name'].'</option>';
+                    include("teacher_db.php");
+                    $sql_check = "SELECT * FROM `teacher_data`";
+                    $res_check = mysqli_query($teacher_conn, $sql_check);
+                    $num_check = mysqli_num_rows($res_check);
+                    if ($num_check > 0) {
+                        while ($row = mysqli_fetch_assoc($res_check)) {
+                            echo '<option value="' . $row['t_id'] . '">' . htmlspecialchars($row['t_id'] . '. ' . $row['t_name']) . '</option>';
                         }
-                       } else {
+                    } else {
                         echo '<option value="#">No Teachers Found</option>';
-                       }
-                       
+                    }
                     ?>
                 </select>
             </div>
 
             <div class="mb-3">
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                    required>
             </div>
 
             <button type="submit" name="btn" class="btn btn-success pb-2 mt-3">Login</button>
