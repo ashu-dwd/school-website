@@ -1,6 +1,6 @@
 <?php
 include("student_db.php");
-$id = $_POST['id'];
+$id = $_POST['student_id'];
 $sql = "select * from `student_data` where s_id = '$id'";
    $res = mysqli_query($conn, $sql);
    if (mysqli_num_rows($res)>0 ) {

@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Ashu's Classroom</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -45,30 +49,34 @@
         </blockquote>
 
         <div class="center-align">
-          <!-- Dropdown Trigger -->
-          <a class="btn dropdown-button" href="" data-target="exams"
-            >hse exams<i class="material-icons right"></i
-          ></a>
+          <a
+            class="btn dropdown-button waves-effect waves-light"
+            href=""
+            data-target="exams"
+          >
+            HSE Exams<i class="material-icons right">arrow_drop_down</i>
+          </a>
 
-          <!-- Dropdown Structure -->
           <ul id="exams" class="dropdown-content">
             <li><a href="#!">GED&trade; Exam</a></li>
             <li><a href="#!">HiSET&trade; Exam</a></li>
             <li><a href="#!">TASC&trade; Exam</a></li>
           </ul>
 
-          <!-- Dropdown Trigger -->
-          <a class="btn dropdown-button" href="" data-target="study"
-            >study<i class="material-icons right"></i
-          ></a>
+          <a
+            class="btn dropdown-button waves-effect waves-light"
+            href=""
+            data-target="study"
+          >
+            Study<i class="material-icons right">arrow_drop_down</i>
+          </a>
 
-          <!-- Dropdown Structure -->
           <ul id="study" class="dropdown-content">
-            <li><a href="#!">mathematics</a></li>
-            <li><a href="#!">reading</a></li>
-            <li><a href="#!">science</a></li>
-            <li><a href="#!">social studies</a></li>
-            <li><a href="#!">writing</a></li>
+            <li><a href="#!">Mathematics</a></li>
+            <li><a href="#!">Reading</a></li>
+            <li><a href="#!">Science</a></li>
+            <li><a href="#!">Social Studies</a></li>
+            <li><a href="#!">Writing</a></li>
           </ul>
         </div>
       </span>
@@ -79,7 +87,7 @@
         href="#message"
         class="modal-trigger btn btn-large btn-floating amber waves-effect waves-light"
       >
-        <i class="large material-icons"></i>
+        <i class="material-icons">message</i>
       </a>
     </div>
 
@@ -95,10 +103,59 @@
       </div>
     </div>
 
-    <footer class="page-footer deep-purple darken-3">
-      <div class="footer-copyright deep-purple darken-4">
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l4 s12">
+            <h5>About Us</h5>
+            <p>
+              We're dedicated to helping students achieve their academic goals
+              through comprehensive HSE exam preparation.
+            </p>
+          </div>
+          <div class="col l4 s12">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="/admin">Admin's Corner</a></li>
+              <li><a href="/student">Student's Corner</a></li>
+              <li><a href="/teacher">Teacher's Corner</a></li>
+              <li><a href="#!">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="col l4 s12">
+            <h5>Connect With Us</h5>
+            <ul class="social-links">
+              <li>
+                <a href="#!" class="white-text"
+                  ><i class="material-icons">facebook</i> Facebook</a
+                >
+              </li>
+
+              <li>
+                <a href="#!" class="white-text"
+                  ><i class="material-icons">email</i> Email</a
+                >
+              </li>
+              <li>
+                <a href="#!" class="white-text"
+                  ><i class="material-icons">phone</i> Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
         <div class="container">
-          <time datetime="{{ site.time | date: '%Y' }}">&copy; 2024 Ashu</time>
+          <div class="row">
+            <div class="col l6 s12">
+              &copy; 2024 Ashu's Classroom. All rights reserved.
+            </div>
+            <div class="col l6 s12 right-align">
+              <a href="#!" class="white-text">Privacy Policy</a> |
+              <a href="#!" class="white-text">Terms of Service</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
@@ -107,14 +164,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
       $(document).ready(function () {
-        $(".modal").modal(); // Initialize the modal
+        $(".modal").modal();
         $(".dropdown-button").dropdown();
-        function toggleMenu() {
-          const navLinks = document.querySelector(".nav-links");
-          navLinks.classList.toggle("active");
-        }
-        // Initialize the dropdown
+        $(".fixed-action-btn").floatingActionButton();
       });
+
+      function toggleMenu() {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active");
+      }
     </script>
   </body>
 </html>

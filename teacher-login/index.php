@@ -5,12 +5,12 @@ if (isset($_POST['btn'])) {
     $id = $_POST['teacherName'];
     $pass = $_POST['password'];
     $sql = "SELECT * FROM `teacher_data` WHERE t_id = '$id' AND t_pass = '$pass'";
-    $res = mysqli_query($teacher_conn, $sql);
+    $res = mysqli_query($conn, $sql);
     $num = mysqli_num_rows($res);
     if ($num > 0) {
         $_SESSION['t_id'] = $id;
         $_SESSION['t_name'] = $name;
-        header("Location: HOME_NEW.php");
+        header("Location: home.php");
     } else {
         echo '<div class="alert alert-danger alert-dismissible">Please Check Your Credentials</div>';
     }
@@ -28,57 +28,57 @@ if (isset($_POST['btn'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS for additional styling -->
     <style>
-    body {
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-image: url("https://images.unsplash.com/photo-1475669698648-2f144fcaaeb1?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    }
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("https://images.unsplash.com/photo-1475669698648-2f144fcaaeb1?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        }
 
-    .login-container {
-        max-width: 400px;
-        width: 100%;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        border-radius: 0.75rem;
-        background-color: rgba(255, 255, 255, 0.4);
-        backdrop-filter: blur(5px);
-        padding: 20px;
-    }
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 20px;
+        }
 
-    .login-container .admin-icon {
-        width: 80px;
-        height: 80px;
-        background-color: #007bff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-        font-size: 2rem;
-        color: #fff;
-    }
+        .login-container .admin-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #fff;
+        }
 
-    .login-container h2 {
-        text-align: center;
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        color: #333;
-    }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
 
-    .login-container .form-control {
-        border-radius: 20px;
-    }
+        .login-container .form-control {
+            border-radius: 20px;
+        }
 
-    .login-container .btn {
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 20px;
-        background-color: #007bff;
-        color: white;
-    }
+        .login-container .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 20px;
+            background-color: #007bff;
+            color: white;
+        }
     </style>
 </head>
 
@@ -99,9 +99,9 @@ if (isset($_POST['btn'])) {
                 <select name="teacherName" id="teacherName" class="form-select" required>
                     <option value="" disabled selected>Select Your Name</option>
                     <?php
-                    include("teacher_db.php");
+                    include "teacher_db.php";
                     $sql_check = "SELECT * FROM `teacher_data`";
-                    $res_check = mysqli_query($teacher_conn, $sql_check);
+                    $res_check = mysqli_query($conn, $sql_check);
                     $num_check = mysqli_num_rows($res_check);
                     if ($num_check > 0) {
                         while ($row = mysqli_fetch_assoc($res_check)) {

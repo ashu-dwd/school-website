@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $dob = $_POST['dob'];
     $s_pass = $_POST['s_pass'];
-
+    //echo $_POST[];
     // Update student details
     $sql = "UPDATE `student_data` SET s_name = '$s_name', class = '$class', section = '$section', 
             father = '$father', mother = '$mother', mobile = '$mobile', email = '$email', 

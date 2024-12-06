@@ -14,39 +14,39 @@ session_start();
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .accordion-button:focus {
-            box-shadow: none;
-        }
+    .accordion-button:focus {
+        box-shadow: none;
+    }
 
-        .accordion-button:not(.collapsed) {
-            color: #007bff;
-            background-color: #f8f9fa;
-        }
+    .accordion-button:not(.collapsed) {
+        color: #007bff;
+        background-color: #f8f9fa;
+    }
 
-        .question-number {
-            font-weight: bold;
-            margin-right: 10px;
-            color: #007bff;
-        }
+    .question-number {
+        font-weight: bold;
+        margin-right: 10px;
+        color: #007bff;
+    }
 
-        .correct-answer {
-            background-color: #d4edda;
-            border-radius: 5px;
-            padding: 5px;
-        }
+    .correct-answer {
+        background-color: #d4edda;
+        border-radius: 5px;
+        padding: 5px;
+    }
 
-        .upload-icon {
-            margin-left: 10px;
-            color: #6c757d;
-        }
+    .upload-icon {
+        margin-left: 10px;
+        color: #6c757d;
+    }
 
-        .progress {
-            height: 5px;
-        }
+    .progress {
+        height: 5px;
+    }
 
-        .accordion-item {
-            margin-bottom: 10px;
-        }
+    .accordion-item {
+        margin-bottom: 10px;
+    }
     </style>
 </head>
 
@@ -120,54 +120,55 @@ session_start();
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).on("click", ".upload-icon", function (e) {
-            e.preventDefault();
+    $(document).on("click", ".upload-icon", function(e) {
+        e.preventDefault();
 
-            // Retrieve data-id from the clicked button's parent
-            var qId = $(this).closest('.accordion-button').data('id');
+        // Retrieve data-id from the clicked button's parent
+        var qId = $(this).closest('.accordion-button').data('id');
 
-            // Use PHP-echoed values directly in JavaScript
-            var correct_ans = $(this).closest('p').text();
-            var subject = <?php echo json_encode($subject); ?>;
-            var s_class = <?php echo json_encode($class); ?>; // Corrected variable name
-            var teacher = <?php echo json_encode($teacher); ?>;
-            var exam_id = <?php echo json_encode($exam_id); ?>;
-            // Use 'this' to refer to the clicked element
-            var clickedElement = $(this);
+        // Use PHP-echoed values directly in JavaScript
+        var correct_ans = $(this).closest('.accordion-item').find('#corr_ans').text().trim();
+        ///alert(correct_ans);
+        var subject = <?php echo json_encode($subject); ?>;
+        var s_class = <?php echo json_encode($class); ?>; // Corrected variable name
+        var teacher = <?php echo json_encode($teacher); ?>;
+        var exam_id = <?php echo json_encode($exam_id); ?>;
+        // Use 'this' to refer to the clicked element
+        var clickedElement = $(this);
 
-            $.ajax({
-                type: "POST",
-                url: "uploading-questions.php",
-                data: {
-                    id: qId,
-                    corr_ans: correct_ans,
-                    exam_id: exam_id,
-                    subject: subject,
-                    s_class: s_class,
-                    teacher: teacher
-                },
-                success: function (response) {
-                    console.log("AJAX Response:", response); // Log the full response
-                    if (response == 1) {
-                        clickedElement.closest(".accordion-item").slideUp();
-                    } else if (response == 2) {
-                        console.log("User ID not provided");
-                    } else {
-                        console.log("Failed to upload question");
-                        console.log(response);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX request failed: ", error);
+        $.ajax({
+            type: "POST",
+            url: "uploading-questions.php",
+            data: {
+                id: qId,
+                corr_ans: correct_ans,
+                exam_id: exam_id,
+                subject: subject,
+                s_class: s_class,
+                teacher: teacher
+            },
+            success: function(response) {
+                console.log("AJAX Response:", response); // Log the full response
+                if (response == 1) {
+                    clickedElement.closest(".accordion-item").slideUp();
+                } else if (response == 2) {
+                    console.log("User ID not provided");
+                } else {
+                    console.log("Failed to upload question");
+                    console.log(response);
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed: ", error);
+            }
         });
+    });
     </script>
 
 </body>

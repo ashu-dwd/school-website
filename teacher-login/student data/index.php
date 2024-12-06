@@ -23,9 +23,9 @@
                     <label for="class" class="form-label">Class:</label>
                     <select class="form-select form-select-lg" name="class" id="class">
                         <option selected>Select one</option>
-                        <?php 
-                        for ($i=1; $i < 13; $i++) { 
-                            echo '<option value="'.$i.'">'.$i.'</option>';
+                        <?php
+                        for ($i = 1; $i < 13; $i++) {
+                            echo '<option value="' . $i . '">' . $i . '</option>';
                         }
                         ?>
                     </select>
@@ -72,6 +72,11 @@
                         <form method="post" action="" id="update-form" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
+                                    <label for="s_id" class="form-label">Student Id</label>
+                                    <input type="number" class="form-control" disabled name="student_id" id="s_id"
+                                        required />
+                                </div>
+                                <div class=" col-md-6 mb-3">
                                     <label for="s_name" class="form-label">Student Name</label>
                                     <input type="text" class="form-control" name="s_name" id="s_name"
                                         placeholder="Enter Student Name" required />
@@ -80,7 +85,7 @@
                                     <label for="class" class="form-label">Class</label>
                                     <select class="form-select" name="class" id="class_update" required>
                                         <option value="">Select Class</option>
-                                        <?php for ($i=1; $i <= 12; $i++) { ?>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <option value="<?php echo $i; ?>">
                                             <?php echo $i; ?>
                                         </option>
@@ -206,6 +211,7 @@
         $(document).on("click", ".delete-btn", function() {
             if (confirm("Do you really want to delete this record?")) {
                 let userId = $(this).data("id");
+
                 var btn = this;
                 $.ajax({
                     url: "delete-student.php",
@@ -232,15 +238,17 @@
             updateModal.show();
 
             var studentId = $(this).data("id");
+            alert(studentId);
+
             $.ajax({
                 url: "fetch-student.php", // This file fetches student data based on ID
                 type: "POST",
                 data: {
-                    id: studentId
+                    student_id: studentId
                 },
                 success: function(response) {
                     let student = JSON.parse(response);
-                    $('#student_id').val(student.id);
+                    $('#s_id').val(student.id);
                     $('#s_name').val(student.s_name);
                     $('#class_update').val(student.class);
                     $('#section_update').val(student.section);
@@ -257,7 +265,8 @@
         $("#update-form").submit(function(e) {
             e.preventDefault(); // Prevent form submission
             // Display serialized form data
-
+            var studentId = $(this).data("id");
+            //alert(studentId);
             $.ajax({
                 url: "update-student.php",
                 type: "POST",
